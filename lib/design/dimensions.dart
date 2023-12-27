@@ -16,6 +16,7 @@ const double padding116 =116;
 const double fontSize12 = 12;
 const double fontSize14 = 14;
 const double fontSize16 = 16;
+const double fontSize22 = 22;
 const double fontSize25 = 25;
 const double fontSize35 = 35;
 

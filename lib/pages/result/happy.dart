@@ -1,28 +1,33 @@
-//import 'dart:js';
+import 'dart:io';
 
-import 'package:coin_app/pages/second_page.dart';
-import 'package:coin_app/pages/second_page2.dart';
 import 'package:flutter/material.dart';
-
 import 'package:coin_app/design/colors.dart';
 import 'package:coin_app/design/dimensions.dart';
 import 'package:coin_app/design/images.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
+import 'package:coin_app/pages/second_page.dart';
+import 'package:coin_app/pages/second_page2.dart';
 
-class FirstPage extends StatelessWidget {
-  const FirstPage({super.key});
+class HappyPage extends StatelessWidget {
+  const HappyPage({super.key});
 
   @override
-  Widget build(BuildContext context) => Stack(children: <Widget>[
-        _first(),
-        Align(alignment: Alignment.bottomCenter, child: _likeButton(context))
-      ]);
+  Widget build(BuildContext context) {
+    return Stack(children: <Widget>[
+      _bildText(),
+      Align(
+        alignment: Alignment.bottomCenter,
+        child: ButtonBar(
+          children: [_returnButton(context), _endButton(context)],
+        ),
+      )
+    ]);
+  }
 
-  Widget _first() {
-
+  Widget _bildText() {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('CatMotion',
+          title: const Text('Result of Test',
               style: TextStyle(
                 color: primaryColor,
                 fontSize: fontSize25,
@@ -34,7 +39,8 @@ class FirstPage extends StatelessWidget {
         ),
         body: Stack(
           children: [
-            const Text("What the heck - what means my cat?",
+            Center(child: happyImage),
+            const Text("Your cat is happy ",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: secondaryTextColor,
@@ -42,17 +48,32 @@ class FirstPage extends StatelessWidget {
                   fontWeight: FontWeight.w500,
                   fontFamily: AutofillHints.familyName,
                 )),
-            Center(child: catImage),
           ],
         ));
   }
 
-  Widget _likeButton(context) {
+  Widget _endButton(context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(left: padding16, right: padding16, bottom:padding8),
+        padding: const EdgeInsets.only(
+            left: padding16, right: padding16, bottom: padding8),
         child: AccentButton(
-            title: 'like',
+            title: 'Exit',
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => exit(0)));
+            }),
+      ),
+    );
+  }
+
+  Widget _returnButton(context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(
+            left: padding16, right: padding116, bottom: padding8),
+        child: AccentButton(
+            title: 'Try again',
             onTap: () {
               Navigator.push(
                 context,

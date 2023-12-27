@@ -6,7 +6,8 @@ import 'package:coin_app/design/dimensions.dart';
 import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
-import 'package:coin_app/pages/image_text_page.dart';
+import 'package:coin_app/pages/result/happy.dart';
+import 'package:http/http.dart' as http; 
 
 
 class SecondPage extends StatelessWidget {
@@ -38,10 +39,13 @@ class SecondPage extends StatelessWidget {
         padding: const EdgeInsets.only(left: padding16, right: padding16, bottom:padding8),
         child: AccentButton(
             title: 'send',
-            onTap: () {
+            onTap: () { //async {
+              //final response = await http.post (Uri.parse('https://google.com'), body: jsonEncode(requestBody),);
+              
+              //print (response.body);
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const BildTextPage()),
+                MaterialPageRoute(builder: (context) => const HappyPage()),
               );
             }),
       ),
