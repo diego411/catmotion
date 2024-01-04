@@ -39,7 +39,10 @@ class SecondPage extends StatelessWidget {
         padding: const EdgeInsets.only(left: padding16, right: padding16, bottom:padding8),
         child: AccentButton(
             title: 'send',
-            onTap: () { //async {
+            onTap: () { //Image (image: NetworkImage('https://ds02.wim.uni-koeln.de/coin-audio/'),
+            //);
+              
+              //async {
               //final response = await http.post (Uri.parse('https://google.com'), body: jsonEncode(requestBody),);
               
               //print (response.body);

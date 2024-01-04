@@ -52,7 +52,7 @@ class FirstPage extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.only(left: padding16, right: padding16, bottom:padding8),
         child: AccentButton(
-            title: 'like',
+            title: 'Let´s go',
             onTap: () {
               Navigator.push(
                 context,
