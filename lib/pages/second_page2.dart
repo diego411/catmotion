@@ -60,7 +60,7 @@ class SecondPage2 extends StatelessWidget {
   }
 
   Widget _first() {
-    return const Scaffold(
+    return Scaffold(
         //title: const Text('Make an audio-clip of your cat',
         //style: TextStyle(
         //color: primaryColor,
@@ -71,7 +71,8 @@ class SecondPage2 extends StatelessWidget {
         //elevation: elevation0,
         //backgroundColor: secondaryColor,
         //),
-        body: MyHomePage(title: 'Make an audio-clip of your cat'));
+        body: MyHomePage(
+            key: myChildWidgetKey, title: 'Make an audio-clip of your cat'));
   }
 
   Widget _sendButton(context) {
