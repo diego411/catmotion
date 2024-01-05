@@ -60,21 +60,18 @@ class SecondPage2 extends StatelessWidget {
   }
 
   Widget _first() {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('CatMotion',
-            style: TextStyle(
-              color: primaryColor,
-              fontSize: fontSize25,
-              fontWeight: FontWeight.w500,
-            )),
-        centerTitle: true,
-        elevation: elevation0,
-        backgroundColor: surfaceColor,
-      ),
-      body: MyHomePage(
-          key: myChildWidgetKey, title: 'Make an audio-clip of your cat'),
-    );
+    return const Scaffold(
+        //title: const Text('Make an audio-clip of your cat',
+        //style: TextStyle(
+        //color: primaryColor,
+        //fontSize: fontSize22,
+        //fontWeight: FontWeight.w500,
+        //)),
+        //centerTitle: true,
+        //elevation: elevation0,
+        //backgroundColor: secondaryColor,
+        //),
+        body: MyHomePage(title: 'Make an audio-clip of your cat'));
   }
 
   Widget _sendButton(context) {
@@ -85,9 +82,6 @@ class SecondPage2 extends StatelessWidget {
         child: AccentButton(
             title: 'Send',
             onTap: () async {
-              //final response = await http.post(
-              //  Uri.parse('https://ds02.wim.uni-koeln.de/coin-audio/classify'),
-              //);
               _MyHomePageState? childWidgetState =
                   myChildWidgetKey.currentState;
               if (childWidgetState != null) {
@@ -189,40 +183,57 @@ class _MyHomePageState extends State<MyHomePage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
-        title: const Text('Make an audio-clip of your cat',
-            style: TextStyle(
-              color: secondaryColor,
-              fontSize: fontSize22,
-              fontWeight: FontWeight.w500,
-            )),
       ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            if (isRecording)
-              const Text(
-                'Recording in Progress',
+      body: Column(
+        children: [
+          SizedBox(
+            height: 100,
+          ),
+          const Center(
+            child: Text('Make an Audio-Clip of your Cat',
+                textAlign: TextAlign.center,
                 style: TextStyle(
-                  fontSize: 25,
+                  color: secondaryTextColor,
+                  fontSize: fontSize35,
+                  fontWeight: FontWeight.w500,
+                  fontFamily: AutofillHints.familyName,
+                )),
+          ),
+          SizedBox(
+            height: 110,
+          ),
+          Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                if (isRecording)
+                  const Text(
+                    'Recording in Progress',
+                    style: TextStyle(
+                      fontSize: 20,
+                      color: primaryColor,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: AutofillHints.familyName,
+                    ),
+                  ),
+                SizedBox(
+                  height: 20,
                 ),
-              ),
-            ElevatedButton(
-              onPressed: isRecording ? stopRecording : startRecording,
-              child: isRecording
-                  ? const Text('Stop Recording')
-                  : const Text('Start Recording'),
+                ElevatedButton(
+                  onPressed: isRecording ? stopRecording : startRecording,
+                  child: Icon(isRecording ? Icons.stop : Icons.mic, size: 40),
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                if (!isRecording && audioPath != null)
+                  ElevatedButton(
+                      onPressed: playRecording,
+                      child: Icon(Icons.play_arrow_rounded, size: 40)),
+              ],
             ),
-            const SizedBox(
-              height: 30,
-            ),
-            if (!isRecording && audioPath != null)
-              ElevatedButton(
-                onPressed: playRecording,
-                child: const Text('Play Recording'),
-              ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
