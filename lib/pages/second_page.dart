@@ -7,17 +7,20 @@ import 'package:flutter_sound/flutter_sound.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
 import 'package:coin_app/pages/result/happy.dart';
-import 'package:http/http.dart' as http; 
-
+import 'package:http/http.dart' as http;
 
 class SecondPage extends StatelessWidget {
   const SecondPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: <Widget>[_first(), Align(alignment: Alignment.bottomCenter, child: _sendButton(context))]);
+    return Stack(children: <Widget>[
+      _first(),
+      Align(alignment: Alignment.bottomCenter, child: _sendButton(context))
+    ]);
   }
-  Widget _first(){
+
+  Widget _first() {
     return Scaffold(
       appBar: AppBar(
         title: const Text('CatMotion',
@@ -33,15 +36,15 @@ class SecondPage extends StatelessWidget {
       body: const MyHomePage(title: 'Make an audio-clip of your cat'),
     );
   }
+
   Widget _sendButton(context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(left: padding16, right: padding16, bottom:padding8),
+        padding: const EdgeInsets.only(
+            left: padding16, right: padding16, bottom: padding8),
         child: AccentButton(
             title: 'send',
-            onTap: () { //async {
-              //final response = await http.post (Uri.parse('https://google.com'), body: jsonEncode(requestBody),);
-              
+            onTap: () async {
               //print (response.body);
               Navigator.push(
                 context,
@@ -153,6 +156,4 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
     );
   }
-
-  
 }

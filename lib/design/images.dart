@@ -15,3 +15,5 @@ final SvgPicture purrImage = SvgPicture.asset('assets/images/purr.svg');
 final SvgPicture sadImage = SvgPicture.asset('assets/images/sad.svg');
 
 final SvgPicture scaredImage = SvgPicture.asset('assets/images/scared.svg');
+
+final SvgPicture notFoundImage = SvgPicture.asset('assets/images/notFound.svg');

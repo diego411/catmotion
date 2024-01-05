@@ -5,11 +5,34 @@ import 'package:coin_app/design/colors.dart';
 import 'package:coin_app/design/dimensions.dart';
 import 'package:coin_app/design/images.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
-import 'package:coin_app/pages/second_page.dart';
 import 'package:coin_app/pages/second_page2.dart';
 
-class HappyPage extends StatelessWidget {
-  const HappyPage({super.key});
+class ResultPage extends StatelessWidget {
+  final String result;
+  ResultPage({super.key, required this.result});
+
+  final labelMap = {
+    'chirp':
+        'Your cat seems to be in hunting mode. We just heard a chirping sound.',
+    'hiss': 'Was that a hiss? Your cat seems angry!',
+    'meow': '',
+    'purr': 'Your cat seems happy and relaxed. Its purring!',
+    'angry (Meow)': 'Your cat seems angry!',
+    'happy (Meow)': 'Your cat seems happy!',
+    'sad (Meow)': 'Your cat seems sad!',
+    'scared (Meow)': 'Your cat seems scared!'
+  };
+
+  final Map<String, Widget> imageMap = {
+    'chirp': chirpImage,
+    'hiss': hissImage,
+    'meow': notFoundImage,
+    'purr': purrImage,
+    'angry (Meow)': angryImage,
+    'happy (Meow)': happyImage,
+    'sad (Meow)': sadImage,
+    'scared (Meow)': scaredImage
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -27,7 +50,7 @@ class HappyPage extends StatelessWidget {
   Widget _bildText() {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Result of Test',
+          title: const Text('Our prediction',
               style: TextStyle(
                 color: primaryColor,
                 fontSize: fontSize25,
@@ -39,10 +62,10 @@ class HappyPage extends StatelessWidget {
         ),
         body: Stack(
           children: [
-            Center(child: happyImage),
-            const Text("Your cat is happy ",
+            Center(child: imageMap[result]!),
+            Text(labelMap[result]!,
                 textAlign: TextAlign.center,
-                style: TextStyle(
+                style: const TextStyle(
                   color: secondaryTextColor,
                   fontSize: fontSize35,
                   fontWeight: FontWeight.w500,

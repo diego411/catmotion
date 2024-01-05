@@ -11,10 +11,10 @@ dependencies:
     sdk: flutter
   flutter_svg: ^2.0.9
   cupertino_icons: ^1.0.2
-  #record: ^5.0.1
   flutter_sound: ^9.2.13
   permission_handler: ^11.1.0
-  record: ^4.4.4
+  record: ^5.0.4
+  path: ^1.8.0
   audioplayers: ^4.1.0
 
 

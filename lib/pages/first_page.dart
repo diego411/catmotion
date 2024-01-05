@@ -19,7 +19,6 @@ class FirstPage extends StatelessWidget {
       ]);
 
   Widget _first() {
-
     return Scaffold(
         appBar: AppBar(
           title: const Text('CatMotion',
@@ -50,13 +49,14 @@ class FirstPage extends StatelessWidget {
   Widget _likeButton(context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(left: padding16, right: padding16, bottom:padding8),
+        padding: const EdgeInsets.only(
+            left: padding16, right: padding16, bottom: padding8),
         child: AccentButton(
             title: 'like',
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const SecondPage2()),
+                MaterialPageRoute(builder: (context) => SecondPage2()),
               );
             }),
       ),

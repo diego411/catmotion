@@ -6,20 +6,60 @@ import 'package:coin_app/design/dimensions.dart';
 //import 'package:flutter_sound/flutter_sound.dart';
 //import 'package:permission_handler/permission_handler.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
-import 'package:coin_app/pages/result/happy.dart';
+import 'package:coin_app/pages/result.dart';
 
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';
-
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
+import 'package:http/http.dart' as http;
 
 class SecondPage2 extends StatelessWidget {
-  const SecondPage2({super.key});
+  SecondPage2({super.key});
+  final GlobalKey<_MyHomePageState> myChildWidgetKey =
+      GlobalKey<_MyHomePageState>();
+
+  Future<String> uploadAudioFile(String filePath) async {
+    File audioFile = File(filePath);
+    List<int> audioBytes = await audioFile.readAsBytes();
+
+    var client = http.Client();
+
+    var domain =
+        'https://ds02.wim.uni-koeln.de/coin-audio/classify'; //'http://172.28.12.123:5000/classify';
+    var url = Uri.parse(domain);
+
+    try {
+      var response = await client.post(
+        url,
+        headers: {'Content-Type': 'application/octet-stream'},
+        body: audioBytes,
+      );
+      print(response);
+      if (response.statusCode == 200) {
+        print('Audio file uploaded successfully!');
+      } else {
+        print(
+            'Failed to upload audio file. Status code: ${response.statusCode}');
+      }
+      return response.body;
+    } catch (e) {
+      print('Error uploading audio file: $e');
+    } finally {
+      client.close();
+    }
+    return "Error";
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Stack(children: <Widget>[_first(), Align(alignment: Alignment.bottomCenter, child: _sendButton(context))]);
+    return Stack(children: <Widget>[
+      _first(),
+      Align(alignment: Alignment.bottomCenter, child: _sendButton(context))
+    ]);
   }
-  Widget _first(){
+
+  Widget _first() {
     return Scaffold(
       appBar: AppBar(
         title: const Text('CatMotion',
@@ -32,20 +72,36 @@ class SecondPage2 extends StatelessWidget {
         elevation: elevation0,
         backgroundColor: surfaceColor,
       ),
-      body: const MyHomePage(title: 'Make an audio-clip of your cat'),
+      body: MyHomePage(
+          key: myChildWidgetKey, title: 'Make an audio-clip of your cat'),
     );
   }
+
   Widget _sendButton(context) {
     return SafeArea(
       child: Padding(
-        padding: const EdgeInsets.only(left: padding16, right: padding16, bottom:padding8),
+        padding: const EdgeInsets.only(
+            left: padding16, right: padding16, bottom: padding8),
         child: AccentButton(
             title: 'Send',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => const HappyPage()),
-              );
+            onTap: () async {
+              //final response = await http.post(
+              //  Uri.parse('https://ds02.wim.uni-koeln.de/coin-audio/classify'),
+              //);
+              _MyHomePageState? childWidgetState =
+                  myChildWidgetKey.currentState;
+              if (childWidgetState != null) {
+                // Access state and perform actions
+                final audioPath = childWidgetState.getAudioPath();
+                final String predictedClass = await uploadAudioFile(audioPath);
+                print(predictedClass);
+
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResultPage(result: predictedClass)),
+                );
+              }
             }),
       ),
     );
@@ -62,15 +118,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late Record audioRecord;
+  late AudioRecorder audioRecord;
   late AudioPlayer audioPlayer;
   bool isRecording = false;
   String audioPath = '';
 
+  String getAudioPath() {
+    return audioPath;
+  }
+
   @override
   void initState() {
     audioPlayer = AudioPlayer();
-    audioRecord = Record();
+    audioRecord = AudioRecorder();
     super.initState();
   }
 
@@ -84,7 +144,8 @@ class _MyHomePageState extends State<MyHomePage> {
   Future<void> startRecording() async {
     try {
       if (await audioRecord.hasPermission()) {
-        await audioRecord.start();
+        const config = RecordConfig(encoder: AudioEncoder.wav, numChannels: 1);
+        await audioRecord.start(config, path: await _getPath());
         setState(() {
           isRecording = true;
         });
@@ -115,13 +176,21 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
+  Future<String> _getPath() async {
+    final dir = await getApplicationDocumentsDirectory();
+    return p.join(
+      dir.path,
+      'audio_${DateTime.now().millisecondsSinceEpoch}.wav',
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
         title: const Text('Make an audio-clip of your cat',
-        style: TextStyle(
+            style: TextStyle(
               color: secondaryColor,
               fontSize: fontSize22,
               fontWeight: FontWeight.w500,
