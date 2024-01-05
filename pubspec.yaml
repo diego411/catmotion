@@ -16,6 +16,8 @@ dependencies:
   record: ^5.0.4
   path: ^1.8.0
   audioplayers: ^4.1.0
+  http: ^0.13.6
+  path_provider: ^2.1.1
 
 
 dev_dependencies:

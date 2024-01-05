@@ -1,12 +1,9 @@
-import 'dart:io';
-
+import 'package:coin_app/pages/record.dart';
 import 'package:flutter/material.dart';
 import 'package:coin_app/design/colors.dart';
 import 'package:coin_app/design/dimensions.dart';
 import 'package:coin_app/design/images.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
-import 'package:coin_app/pages/second_page2.dart';
-import 'package:coin_app/pages/first_page.dart';
 
 class ResultPage extends StatelessWidget {
   final String result;
@@ -87,7 +84,7 @@ class ResultPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => const FirstPage()),
+                MaterialPageRoute(builder: (context) => RecordPage()),
               );
             }),
       ),

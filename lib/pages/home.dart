@@ -1,7 +1,4 @@
-//import 'dart:js';
-
-import 'package:coin_app/pages/second_page.dart';
-import 'package:coin_app/pages/second_page2.dart';
+import 'package:coin_app/pages/record.dart';
 import 'package:flutter/material.dart';
 
 import 'package:coin_app/design/colors.dart';
@@ -33,7 +30,7 @@ class FirstPage extends StatelessWidget {
         ),
         body: Stack(
           children: [
-            const Text("What the heck - what means my cat?",
+            const Text("What the heck - what does my cat mean?",
                 textAlign: TextAlign.center,
                 style: TextStyle(
                   color: secondaryTextColor,
@@ -56,7 +53,7 @@ class FirstPage extends StatelessWidget {
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SecondPage2()),
+                MaterialPageRoute(builder: (context) => RecordPage()),
               );
             }),
       ),

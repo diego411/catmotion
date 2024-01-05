@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:coin_app/design/colors.dart';
 import 'package:coin_app/design/dimensions.dart';
-//import 'package:flutter_sound/flutter_sound.dart';
-//import 'package:permission_handler/permission_handler.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
 import 'package:coin_app/pages/result.dart';
 
@@ -14,10 +12,10 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:http/http.dart' as http;
 
-class SecondPage2 extends StatelessWidget {
-  SecondPage2({super.key});
-  final GlobalKey<_MyHomePageState> myChildWidgetKey =
-      GlobalKey<_MyHomePageState>();
+class RecordPage extends StatelessWidget {
+  RecordPage({super.key});
+  // ignore: library_private_types_in_public_api
+  final GlobalKey<_RecordState> recordStateKey = GlobalKey<_RecordState>();
 
   Future<String> uploadAudioFile(String filePath) async {
     File audioFile = File(filePath);
@@ -61,18 +59,8 @@ class SecondPage2 extends StatelessWidget {
 
   Widget _first() {
     return Scaffold(
-        //title: const Text('Make an audio-clip of your cat',
-        //style: TextStyle(
-        //color: primaryColor,
-        //fontSize: fontSize22,
-        //fontWeight: FontWeight.w500,
-        //)),
-        //centerTitle: true,
-        //elevation: elevation0,
-        //backgroundColor: secondaryColor,
-        //),
-        body: MyHomePage(
-            key: myChildWidgetKey, title: 'Make an audio-clip of your cat'));
+        body: RecordWidget(
+            key: recordStateKey, title: 'Make an audio-clip of your cat'));
   }
 
   Widget _sendButton(context) {
@@ -83,11 +71,10 @@ class SecondPage2 extends StatelessWidget {
         child: AccentButton(
             title: 'Send',
             onTap: () async {
-              _MyHomePageState? childWidgetState =
-                  myChildWidgetKey.currentState;
-              if (childWidgetState != null) {
+              _RecordState? recordState = recordStateKey.currentState;
+              if (recordState != null) {
                 // Access state and perform actions
-                final audioPath = childWidgetState.getAudioPath();
+                final audioPath = recordState.getAudioPath();
                 final String predictedClass = await uploadAudioFile(audioPath);
                 print(predictedClass);
 
@@ -103,16 +90,16 @@ class SecondPage2 extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
+class RecordWidget extends StatefulWidget {
+  const RecordWidget({super.key, required this.title});
 
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<RecordWidget> createState() => _RecordState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _RecordState extends State<RecordWidget> {
   late AudioRecorder audioRecord;
   late AudioPlayer audioPlayer;
   bool isRecording = false;
@@ -187,7 +174,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       body: Column(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 100,
           ),
           const Center(
@@ -200,7 +187,7 @@ class _MyHomePageState extends State<MyHomePage> {
                   fontFamily: AutofillHints.familyName,
                 )),
           ),
-          SizedBox(
+          const SizedBox(
             height: 110,
           ),
           Center(
@@ -217,7 +204,7 @@ class _MyHomePageState extends State<MyHomePage> {
                       fontFamily: AutofillHints.familyName,
                     ),
                   ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
                 ElevatedButton(
@@ -227,10 +214,10 @@ class _MyHomePageState extends State<MyHomePage> {
                 const SizedBox(
                   height: 50,
                 ),
-                if (!isRecording && audioPath != null)
+                if (!isRecording && audioPath != '')
                   ElevatedButton(
                       onPressed: playRecording,
-                      child: Icon(Icons.play_arrow_rounded, size: 40)),
+                      child: const Icon(Icons.play_arrow_rounded, size: 40)),
               ],
             ),
           ),

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:coin_app/pages/first_page.dart';
+import 'package:coin_app/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
@@ -7,8 +7,7 @@ void main() {
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
-//class ImageWidget extends StatelessWidget {
-  //const ImageWidget({Key key}): super(key: key);
+
   @override
   Widget build(BuildContext context) => MaterialApp(
         title: 'Kiparo dispatcher',
