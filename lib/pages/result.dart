@@ -6,6 +6,7 @@ import 'package:coin_app/design/dimensions.dart';
 import 'package:coin_app/design/images.dart';
 import 'package:coin_app/design/widgets/accent_button.dart';
 import 'package:coin_app/pages/second_page2.dart';
+import 'package:coin_app/pages/first_page.dart';
 
 class ResultPage extends StatelessWidget {
   final String result;
@@ -40,10 +41,8 @@ class ResultPage extends StatelessWidget {
       _bildText(),
       Align(
         alignment: Alignment.bottomCenter,
-        child: ButtonBar(
-          children: [_returnButton(context), _endButton(context)],
-        ),
-      )
+        child: _returnButton(context),
+      ),
     ]);
   }
 
@@ -60,47 +59,35 @@ class ResultPage extends StatelessWidget {
           elevation: elevation0,
           backgroundColor: surfaceColor,
         ),
-        body: Stack(
+        body: Column(
           children: [
+            Padding(
+              padding: const EdgeInsets.only(top: 50, bottom: 70),
+              child: Text(labelMap[result]!,
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: secondaryTextColor,
+                    fontSize: fontSize35,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AutofillHints.familyName,
+                  )),
+            ),
             Center(child: imageMap[result]!),
-            Text(labelMap[result]!,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: secondaryTextColor,
-                  fontSize: fontSize35,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: AutofillHints.familyName,
-                )),
           ],
         ));
-  }
-
-  Widget _endButton(context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(
-            left: padding16, right: padding16, bottom: padding8),
-        child: AccentButton(
-            title: 'Exit',
-            onTap: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (context) => exit(0)));
-            }),
-      ),
-    );
   }
 
   Widget _returnButton(context) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(
-            left: padding16, right: padding116, bottom: padding8),
+            left: padding16, right: padding16, bottom: padding8),
         child: AccentButton(
-            title: 'Try again',
+            title: 'Try Again',
             onTap: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(builder: (context) => SecondPage2()),
+                MaterialPageRoute(builder: (context) => const FirstPage()),
               );
             }),
       ),
