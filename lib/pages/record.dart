@@ -59,32 +59,39 @@ class RecordPage extends StatelessWidget {
 
   Widget _first() {
     return Scaffold(
-        body: RecordWidget(
-            key: recordStateKey, title: 'Make an audio-clip of your cat'));
+      body: RecordWidget(
+        key: recordStateKey,
+        title: 'Make an audio-clip of your cat',
+      ),
+    );
   }
 
   Widget _sendButton(context) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(
-            left: padding16, right: padding16, bottom: padding8),
+          left: padding16,
+          right: padding16,
+          bottom: padding8,
+        ),
         child: AccentButton(
-            title: 'Send',
-            onTap: () async {
-              _RecordState? recordState = recordStateKey.currentState;
-              if (recordState != null) {
-                // Access state and perform actions
-                final audioPath = recordState.getAudioPath();
-                final String predictedClass = await uploadAudioFile(audioPath);
-                print(predictedClass);
+          title: 'Send',
+          onTap: () async {
+            _RecordState? recordState = recordStateKey.currentState;
+            if (recordState != null) {
+              // Access state and perform actions
+              final audioPath = recordState.getAudioPath();
+              final String predictedClass = await uploadAudioFile(audioPath);
+              print(predictedClass);
 
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                      builder: (context) => ResultPage(result: predictedClass)),
-                );
-              }
-            }),
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => ResultPage(result: predictedClass)),
+              );
+            }
+          },
+        ),
       ),
     );
   }
@@ -178,14 +185,16 @@ class _RecordState extends State<RecordWidget> {
             height: 100,
           ),
           const Center(
-            child: Text('Make an Audio-Clip of your Cat',
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: secondaryTextColor,
-                  fontSize: fontSize35,
-                  fontWeight: FontWeight.w500,
-                  fontFamily: AutofillHints.familyName,
-                )),
+            child: Text(
+              'Make an Audio-Clip of your Cat',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                color: secondaryTextColor,
+                fontSize: fontSize35,
+                fontWeight: FontWeight.w500,
+                fontFamily: AutofillHints.familyName,
+              ),
+            ),
           ),
           const SizedBox(
             height: 110,
