@@ -45,49 +45,58 @@ class ResultPage extends StatelessWidget {
 
   Widget _bildText() {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Our Prediction',
-              style: TextStyle(
-                color: primaryColor,
-                fontSize: fontSize25,
-                fontWeight: FontWeight.w500,
-              )),
-          centerTitle: true,
-          elevation: elevation0,
-          backgroundColor: surfaceColor,
-          leading: Icon(Icons.pets),
+      appBar: AppBar(
+        title: const Text(
+          'Our Prediction',
+          style: TextStyle(
+            color: primaryColor,
+            fontSize: fontSize25,
+            fontWeight: FontWeight.w500,
+          ),
         ),
-        body: Column(
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(top: 50, bottom: 70),
-              child: Text(labelMap[result]!,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    color: secondaryTextColor,
-                    fontSize: fontSize35,
-                    fontWeight: FontWeight.w500,
-                    fontFamily: AutofillHints.familyName,
-                  )),
+        centerTitle: true,
+        elevation: elevation0,
+        backgroundColor: surfaceColor,
+        leading: Icon(Icons.pets),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(top: 50, bottom: 70),
+            child: Text(
+              labelMap[result]!,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
+                color: secondaryTextColor,
+                fontSize: fontSize35,
+                fontWeight: FontWeight.w500,
+                fontFamily: AutofillHints.familyName,
+              ),
             ),
-            Center(child: imageMap[result]!),
-          ],
-        ));
+          ),
+          Center(child: imageMap[result]!),
+        ],
+      ),
+    );
   }
 
   Widget _returnButton(context) {
     return SafeArea(
       child: Padding(
         padding: const EdgeInsets.only(
-            left: padding16, right: padding16, bottom: padding8),
+          left: padding16,
+          right: padding16,
+          bottom: padding8,
+        ),
         child: AccentButton(
-            title: 'Try Again',
-            onTap: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(builder: (context) => RecordPage()),
-              );
-            }),
+          title: 'Try Again',
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => RecordPage()),
+            );
+          },
+        ),
       ),
     );
   }
