@@ -46,7 +46,7 @@ class ResultPage extends StatelessWidget {
   Widget _bildText() {
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Our prediction',
+          title: const Text('Our Prediction',
               style: TextStyle(
                 color: primaryColor,
                 fontSize: fontSize25,
@@ -55,6 +55,7 @@ class ResultPage extends StatelessWidget {
           centerTitle: true,
           elevation: elevation0,
           backgroundColor: surfaceColor,
+          leading: Icon(Icons.pets),
         ),
         body: Column(
           children: [

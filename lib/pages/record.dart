@@ -171,6 +171,7 @@ class _RecordState extends State<RecordWidget> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
+        leading: Icon(Icons.pets, color: Colors.white),
       ),
       body: Column(
         children: [

@@ -21,8 +21,14 @@ dependencies:
 
 
 dev_dependencies:
+  flutter_launcher_icons: ^0.13.1
   flutter_test:
     sdk: flutter
+
+flutter_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/icons/cat.webp"
 
   flutter_lints: ^2.0.0
 
@@ -32,3 +38,4 @@ flutter:
 
   assets:
     - assets/images/
+    - assets/icons/
