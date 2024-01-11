@@ -18,6 +18,10 @@ dependencies:
   audioplayers: ^4.1.0
   http: ^0.13.6
   path_provider: ^2.1.1
+  #pick and read file
+  file_picker: ^6.1.1
+  #open files
+  open_file: ^3.3.2
 
 
 dev_dependencies:

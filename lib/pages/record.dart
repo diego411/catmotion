@@ -12,6 +12,9 @@ import 'package:path_provider/path_provider.dart';
 import 'package:path/path.dart' as p;
 import 'package:http/http.dart' as http;
 
+import 'package:file_picker/file_picker.dart';
+import 'package:open_file/open_file.dart';
+
 class RecordPage extends StatelessWidget {
   RecordPage({super.key});
   // ignore: library_private_types_in_public_api
@@ -185,17 +188,31 @@ class _RecordState extends State<RecordWidget> {
           const SizedBox(
             height: 100,
           ),
-          const Center(
-            child: Text(
-              'Make an Audio-Clip of your Cat',
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                color: secondaryTextColor,
-                fontSize: fontSize35,
-                fontWeight: FontWeight.w500,
-                fontFamily: AutofillHints.familyName,
+          Column(
+            children: [
+              const Center(
+                child: Text(
+                  'Decoding an Audio-Clip of your Cat',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: secondaryTextColor,
+                    fontSize: fontSize35,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AutofillHints.familyName,
+                  ),
+                ),
               ),
-            ),
+              SizedBox(height: 100),
+              ElevatedButton(child: Icon(Icons.file_upload_rounded, size: 40),
+              onPressed: () async {
+                final result = await FilePicker.platform.pickFiles();
+                if(result == null) return;
+                //open single file
+                final file = result.files.first;
+                openFile(file);
+              },
+              ),
+            ],
           ),
           const SizedBox(
             height: 110,
@@ -234,5 +251,8 @@ class _RecordState extends State<RecordWidget> {
         ],
       ),
     );
+  }
+  void openFile(PlatformFile file){
+    OpenFile.open(file.path!);
   }
 }
