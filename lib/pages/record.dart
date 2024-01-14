@@ -1,11 +1,11 @@
 import 'dart:io';
 
+import 'package:coin_app/design/widgets/progress_accent_button.dart';
 import 'package:flutter/material.dart';
 import 'package:coin_app/design/colors.dart';
 import 'package:coin_app/design/dimensions.dart';
-import 'package:coin_app/design/widgets/accent_button.dart';
 import 'package:coin_app/pages/result.dart';
-
+import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:path_provider/path_provider.dart';
@@ -13,111 +13,20 @@ import 'package:path/path.dart' as p;
 import 'package:http/http.dart' as http;
 
 import 'package:file_picker/file_picker.dart';
-import 'package:open_file/open_file.dart';
 
-class RecordPage extends StatelessWidget {
+class RecordPage extends StatefulWidget {
   RecordPage({super.key});
-  // ignore: library_private_types_in_public_api
-  final GlobalKey<_RecordState> recordStateKey = GlobalKey<_RecordState>();
-
-  Future<String> uploadAudioFile(String filePath) async {
-    File audioFile = File(filePath);
-    List<int> audioBytes = await audioFile.readAsBytes();
-
-    var client = http.Client();
-
-    var domain =
-        'https://ds02.wim.uni-koeln.de/coin-audio/classify'; //'http://172.28.12.123:5000/classify';
-    var url = Uri.parse(domain);
-
-    try {
-      var response = await client.post(
-        url,
-        headers: {'Content-Type': 'application/octet-stream'},
-        body: audioBytes,
-      );
-      print(response);
-      if (response.statusCode == 200) {
-        print('Audio file uploaded successfully!');
-      } else {
-        print(
-            'Failed to upload audio file. Status code: ${response.statusCode}');
-      }
-      return response.body;
-    } catch (e) {
-      print('Error uploading audio file: $e');
-    } finally {
-      client.close();
-    }
-    return "Error";
-  }
 
   @override
-  Widget build(BuildContext context) {
-    return Stack(children: <Widget>[
-      _first(),
-      Align(alignment: Alignment.bottomCenter, child: _sendButton(context))
-    ]);
-  }
-
-  Widget _first() {
-    return Scaffold(
-      body: RecordWidget(
-        key: recordStateKey,
-        title: 'Make an audio-clip of your cat',
-      ),
-    );
-  }
-
-  Widget _sendButton(context) {
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.only(
-          left: padding16,
-          right: padding16,
-          bottom: padding8,
-        ),
-        child: AccentButton(
-          title: 'Send',
-          onTap: () async {
-            _RecordState? recordState = recordStateKey.currentState;
-            if (recordState != null) {
-              // Access state and perform actions
-              final audioPath = recordState.getAudioPath();
-              final String predictedClass = await uploadAudioFile(audioPath);
-              print(predictedClass);
-
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => ResultPage(result: predictedClass)),
-              );
-            }
-          },
-        ),
-      ),
-    );
-  }
+  State<RecordPage> createState() => _RecordPageState();
 }
 
-class RecordWidget extends StatefulWidget {
-  const RecordWidget({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<RecordWidget> createState() => _RecordState();
-}
-
-class _RecordState extends State<RecordWidget> {
+class _RecordPageState extends State<RecordPage> {
+  bool isLoading = false;
   late AudioRecorder audioRecord;
   late AudioPlayer audioPlayer;
   bool isRecording = false;
-  String audioPath = '';
-
-  String getAudioPath() {
-    return audioPath;
-  }
+  String? audioPath = null;
 
   @override
   void initState() {
@@ -160,8 +69,9 @@ class _RecordState extends State<RecordWidget> {
   }
 
   Future<void> playRecording() async {
+    if (audioPath == null) return;
     try {
-      Source urlSource = UrlSource(audioPath);
+      Source urlSource = UrlSource(audioPath!);
       await audioPlayer.play(urlSource);
     } catch (e) {
       print('Error playing Recording : $e');
@@ -176,8 +86,95 @@ class _RecordState extends State<RecordWidget> {
     );
   }
 
+  Future<String> uploadAudioFile(String filePath) async {
+    File audioFile = File(filePath);
+    List<int> audioBytes = await audioFile.readAsBytes();
+
+    var client = http.Client();
+
+    var domain =
+        'https://ds02.wim.uni-koeln.de/coin-audio/classify'; //'http://172.28.12.123:5000/classify';
+    var url = Uri.parse(domain);
+
+    try {
+      var response = await client.post(
+        url,
+        headers: {'Content-Type': 'application/octet-stream'},
+        body: audioBytes,
+      );
+
+      if (response.statusCode == 200)
+        print('Audio file uploaded successfully!');
+      else
+        return Future.error(
+          'Failed to upload audio file. Status code: ${response.statusCode}',
+        );
+
+      return response.body;
+    } catch (e) {
+      return Future.error('Error uploading audio file: $e');
+    } finally {
+      client.close();
+    }
+  }
+
+  void send() async {
+    if (isLoading || audioPath == null) return;
+
+    setState(() {
+      isLoading = true;
+    });
+
+    String? predictedClass = null;
+    try {
+      predictedClass = await uploadAudioFile(audioPath!);
+      print(predictedClass);
+    } catch (error) {
+      print(error.toString());
+      ScaffoldMessenger.of(context)
+        ..hideCurrentSnackBar()
+        ..showSnackBar(
+          SnackBar(
+            margin: EdgeInsets.only(
+                bottom: MediaQuery.of(context).size.height -
+                    MediaQuery.of(context).size.height * 0.2),
+            dismissDirection: DismissDirection.none,
+            elevation: 0,
+            behavior: SnackBarBehavior.floating,
+            backgroundColor: Colors.transparent,
+            content: AwesomeSnackbarContent(
+              title: 'An Error occured',
+              message: error.toString(),
+              contentType: ContentType.failure,
+              color: DefaultColors.failureRed,
+            ),
+          ),
+        );
+    }
+
+    setState(() {
+      isLoading = false;
+    });
+
+    if (predictedClass == null) return;
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ResultPage(result: predictedClass!),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
+    return Stack(children: <Widget>[
+      _first(),
+      Align(alignment: Alignment.bottomCenter, child: _sendButton(context))
+    ]);
+  }
+
+  Widget _first() {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: primaryColor,
@@ -203,14 +200,20 @@ class _RecordState extends State<RecordWidget> {
                 ),
               ),
               SizedBox(height: 100),
-              ElevatedButton(child: Icon(Icons.file_upload_rounded, size: 40),
-              onPressed: () async {
-                final result = await FilePicker.platform.pickFiles();
-                if(result == null) return;
-                //open single file
-                final file = result.files.first;
-                openFile(file);
-              },
+              ElevatedButton(
+                child: Icon(Icons.file_upload_rounded, size: 40),
+                onPressed: () async {
+                  final result = await FilePicker.platform.pickFiles();
+
+                  if (result == null) return;
+
+                  final file = result.files.first;
+                  print(file.path!);
+                  setState(() {
+                    isRecording = isRecording;
+                    audioPath = file.path!;
+                  });
+                },
               ),
             ],
           ),
@@ -241,18 +244,36 @@ class _RecordState extends State<RecordWidget> {
                 const SizedBox(
                   height: 50,
                 ),
-                if (!isRecording && audioPath != '')
-                  ElevatedButton(
-                      onPressed: playRecording,
-                      child: const Icon(Icons.play_arrow_rounded, size: 40)),
               ],
             ),
           ),
+          if (audioPath != null)
+            Center(
+              child: ElevatedButton(
+                onPressed: playRecording,
+                child: const Icon(Icons.play_arrow_rounded, size: 40),
+              ),
+            )
         ],
       ),
     );
   }
-  void openFile(PlatformFile file){
-    OpenFile.open(file.path!);
+
+  Widget _sendButton(context) {
+    return SafeArea(
+      child: Padding(
+        padding: const EdgeInsets.only(
+          left: padding16,
+          right: padding16,
+          bottom: padding8,
+        ),
+        child: ProgressAccentButton(
+          disabled: audioPath == null,
+          title: 'Send',
+          isLoading: isLoading,
+          onTap: send,
+        ),
+      ),
+    );
   }
 }
