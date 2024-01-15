@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:coin_app/design/colors.dart';
-import 'package:coin_app/design/dimensions.dart';
+import 'package:cat_motion/design/colors.dart';
+import 'package:cat_motion/design/dimensions.dart';
 
 class AccentButton extends StatelessWidget {
   final String title;

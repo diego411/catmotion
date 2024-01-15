@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:coin_app/pages/home.dart';
+import 'package:cat_motion/pages/home.dart';
 
 void main() {
   runApp(const MyApp());
