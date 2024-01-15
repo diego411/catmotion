@@ -230,7 +230,7 @@ class _RecordPageState extends State<RecordPage> {
                   style: TextStyle(
                     color: secondaryTextColor,
                     fontSize: fontSize35,
-                    fontWeight: FontWeight.w500,
+                    fontWeight: FontWeight.w600,
                     fontFamily: 'Merienda',
                   ),
                 ),
