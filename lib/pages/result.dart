@@ -70,7 +70,7 @@ class ResultPage extends StatelessWidget {
                 color: secondaryTextColor,
                 fontSize: fontSize35,
                 fontWeight: FontWeight.w500,
-                fontFamily: AutofillHints.familyName,
+                fontFamily: 'Merienda',
               ),
             ),
           ),
