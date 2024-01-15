@@ -1,4 +1,4 @@
-# coin_app
+# cat_motion
 
 A new Flutter project.
 
