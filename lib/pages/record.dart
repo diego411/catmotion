@@ -1,10 +1,10 @@
 import 'dart:io';
 
-import 'package:cat_motion/design/widgets/progress_accent_button.dart';
+import 'package:coin_app/design/widgets/progress_accent_button.dart';
 import 'package:flutter/material.dart';
-import 'package:cat_motion/design/colors.dart';
-import 'package:cat_motion/design/dimensions.dart';
-import 'package:cat_motion/pages/result.dart';
+import 'package:coin_app/design/colors.dart';
+import 'package:coin_app/design/dimensions.dart';
+import 'package:coin_app/pages/result.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:record/record.dart';
 import 'package:audioplayers/audioplayers.dart';

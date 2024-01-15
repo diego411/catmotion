@@ -1,4 +1,4 @@
-package com.example.cat_motion
+package com.example.coin_app
 
 import io.flutter.embedding.android.FlutterActivity
 

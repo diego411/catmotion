@@ -1,10 +1,10 @@
-import 'package:cat_motion/pages/record.dart';
+import 'package:coin_app/pages/record.dart';
 import 'package:flutter/material.dart';
 
-import 'package:cat_motion/design/colors.dart';
-import 'package:cat_motion/design/dimensions.dart';
-import 'package:cat_motion/design/images.dart';
-import 'package:cat_motion/design/widgets/accent_button.dart';
+import 'package:coin_app/design/colors.dart';
+import 'package:coin_app/design/dimensions.dart';
+import 'package:coin_app/design/images.dart';
+import 'package:coin_app/design/widgets/accent_button.dart';
 
 class FirstPage extends StatelessWidget {
   const FirstPage({super.key});
