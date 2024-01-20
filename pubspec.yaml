@@ -45,3 +45,7 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+  fonts:
+    - family: Merienda
+      fonts:
+      - asset: assets/fonts/Merienda-Medium.ttf

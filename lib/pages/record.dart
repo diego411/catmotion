@@ -183,7 +183,7 @@ class _RecordPageState extends State<RecordPage> {
       body: Column(
         children: [
           const SizedBox(
-            height: 80,
+            height: 60,
           ),
           Column(
             children: [
@@ -195,13 +195,13 @@ class _RecordPageState extends State<RecordPage> {
                     color: secondaryTextColor,
                     fontSize: fontSize35,
                     fontWeight: FontWeight.w500,
-                    fontFamily: AutofillHints.familyName,
+                    fontFamily: 'Merienda',
                   ),
                 ),
               ),
-              SizedBox(height: 25),
+              SizedBox(height: 40),
               ElevatedButton(
-                child: Icon(Icons.file_upload_rounded, size: 40),
+                child: Icon(Icons.file_upload_rounded, size: 60),
                 onPressed: () async {
                   final result = await FilePicker.platform.pickFiles();
 
@@ -218,12 +218,11 @@ class _RecordPageState extends State<RecordPage> {
             ],
           ),
           const SizedBox(
-            height: 75,
+            height: 50,
           ),
           Center(
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
+              children: [
                 const Center(
                   child: Text(
                     'Record an Audio-Clip of your Cat',
@@ -231,30 +230,36 @@ class _RecordPageState extends State<RecordPage> {
                     style: TextStyle(
                       color: secondaryTextColor,
                       fontSize: fontSize35,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: AutofillHints.familyName,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Merienda',
                     ),
                   ),
                 ),
-                const SizedBox(
-                  height: 25,
-                ),
-                if (isRecording)
-                  const Text(
-                    'Recording in Progress',
-                    style: TextStyle(
-                      fontSize: 20,
-                      color: primaryColor,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: AutofillHints.familyName,
+                Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    if (isRecording)
+                      const Text(
+                        'Recording in Progress',
+                        style: TextStyle(
+                          fontSize: 20,
+                          color: primaryColor,
+                          fontWeight: FontWeight.w800,
+                          fontFamily: 'Merienda',
+                        ),
+                      ),
+                    const SizedBox(
+                      height: 30,
                     ),
-                  ),
-                ElevatedButton(
-                  onPressed: isRecording ? stopRecording : startRecording,
-                  child: Icon(isRecording ? Icons.stop : Icons.mic, size: 40),
-                ),
-                const SizedBox(
-                  height: 50,
+                    ElevatedButton(
+                      onPressed: isRecording ? stopRecording : startRecording,
+                      child:
+                          Icon(isRecording ? Icons.stop : Icons.mic, size: 60),
+                    ),
+                    const SizedBox(
+                      height: 50,
+                    ),
+                  ],
                 ),
               ],
             ),
@@ -263,7 +268,7 @@ class _RecordPageState extends State<RecordPage> {
             Center(
               child: ElevatedButton(
                 onPressed: playRecording,
-                child: const Icon(Icons.play_arrow_rounded, size: 40),
+                child: const Icon(Icons.play_arrow_rounded, size: 60),
               ),
             )
         ],
