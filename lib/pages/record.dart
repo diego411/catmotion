@@ -183,13 +183,13 @@ class _RecordPageState extends State<RecordPage> {
       body: Column(
         children: [
           const SizedBox(
-            height: 100,
+            height: 80,
           ),
           Column(
             children: [
               const Center(
                 child: Text(
-                  'Decoding an Audio-Clip of your Cat',
+                  'Upload an Audio-Clip of your Cat or',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     color: secondaryTextColor,
@@ -199,7 +199,7 @@ class _RecordPageState extends State<RecordPage> {
                   ),
                 ),
               ),
-              SizedBox(height: 100),
+              SizedBox(height: 25),
               ElevatedButton(
                 child: Icon(Icons.file_upload_rounded, size: 40),
                 onPressed: () async {
@@ -218,12 +218,27 @@ class _RecordPageState extends State<RecordPage> {
             ],
           ),
           const SizedBox(
-            height: 110,
+            height: 75,
           ),
           Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
+                const Center(
+                  child: Text(
+                    'Record an Audio-Clip of your Cat',
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: secondaryTextColor,
+                      fontSize: fontSize35,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: AutofillHints.familyName,
+                    ),
+                  ),
+                ),
+                const SizedBox(
+                  height: 25,
+                ),
                 if (isRecording)
                   const Text(
                     'Recording in Progress',
@@ -234,9 +249,6 @@ class _RecordPageState extends State<RecordPage> {
                       fontFamily: AutofillHints.familyName,
                     ),
                   ),
-                const SizedBox(
-                  height: 20,
-                ),
                 ElevatedButton(
                   onPressed: isRecording ? stopRecording : startRecording,
                   child: Icon(isRecording ? Icons.stop : Icons.mic, size: 40),

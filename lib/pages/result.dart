@@ -17,8 +17,7 @@ class ResultPage extends StatelessWidget {
     'purr': 'Your cat seems happy and relaxed. Its purring!',
     'angry (Meow)': 'Your cat seems angry!',
     'happy (Meow)': 'Your cat seems happy!',
-    'sad (Meow)': 'Your cat seems sad!',
-    'scared (Meow)': 'Your cat seems scared!'
+    'sad (Meow)': 'Your cat seems sad!'
   };
 
   final Map<String, Widget> imageMap = {
@@ -28,8 +27,7 @@ class ResultPage extends StatelessWidget {
     'purr': purrImage,
     'angry (Meow)': angryImage,
     'happy (Meow)': happyImage,
-    'sad (Meow)': sadImage,
-    'scared (Meow)': scaredImage
+    'sad (Meow)': sadImage
   };
 
   @override
