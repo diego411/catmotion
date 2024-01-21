@@ -39,8 +39,8 @@ class FirstPage extends StatelessWidget {
               style: TextStyle(
                 color: secondaryTextColor,
                 fontSize: fontSize35,
-                fontWeight: FontWeight.w600,
-                fontFamily: 'Merienda',
+                fontWeight: FontWeight.w500,
+                fontFamily: AutofillHints.familyName,
               )),
           Center(child: catImage),
         ],
