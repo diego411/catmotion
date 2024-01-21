@@ -195,7 +195,7 @@ class _RecordPageState extends State<RecordPage> {
                     color: secondaryTextColor,
                     fontSize: fontSize35,
                     fontWeight: FontWeight.w500,
-                    fontFamily: 'Merienda',
+                    fontFamily: AutofillHints.familyName,
                   ),
                 ),
               ),
@@ -220,49 +220,49 @@ class _RecordPageState extends State<RecordPage> {
           const SizedBox(
             height: 50,
           ),
-          Center(
-            child: Column(
-              children: [
-                const Center(
-                  child: Text(
-                    'Record an Audio-Clip of your Cat',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(
-                      color: secondaryTextColor,
-                      fontSize: fontSize35,
-                      fontWeight: FontWeight.w600,
-                      fontFamily: 'Merienda',
-                    ),
+          Column(
+            children: [
+              const Center(
+                child: Text(
+                  'Record an Audio-Clip of your Cat',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    color: secondaryTextColor,
+                    fontSize: fontSize35,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: AutofillHints.familyName,
                   ),
                 ),
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    if (isRecording)
-                      const Text(
-                        'Recording in Progress',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: primaryColor,
-                          fontWeight: FontWeight.w800,
-                          fontFamily: 'Merienda',
-                        ),
+              ),
+              Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  if (isRecording)
+                    const Text(
+                      'Recording in Progress',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: primaryColor,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: AutofillHints.familyName,
                       ),
-                    const SizedBox(
-                      height: 30,
                     ),
-                    ElevatedButton(
-                      onPressed: isRecording ? stopRecording : startRecording,
-                      child:
-                          Icon(isRecording ? Icons.stop : Icons.mic, size: 60),
+                  const SizedBox(
+                    height: 30,
+                  ),
+                  ElevatedButton(
+                    onPressed: isRecording ? stopRecording : startRecording,
+                    child: Icon(
+                      isRecording ? Icons.stop : Icons.mic,
+                      size: 60,
                     ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                  ],
-                ),
-              ],
-            ),
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                ],
+              ),
+            ],
           ),
           if (audioPath != null)
             Center(

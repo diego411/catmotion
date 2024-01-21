@@ -68,7 +68,7 @@ class ResultPage extends StatelessWidget {
                 color: secondaryTextColor,
                 fontSize: fontSize35,
                 fontWeight: FontWeight.w500,
-                fontFamily: 'Merienda',
+                fontFamily: AutofillHints.familyName,
               ),
             ),
           ),
