@@ -1,16 +1,23 @@
-# coin_app
+# Mobile app
 
-A new Flutter project.
+This directory contains the code for the mobile app catmotion.
 
-## Getting Started
+# Dependencies
 
-This project is a starting point for a Flutter application.
++ Flutter sdk
++ Android Studio
++ Android toolchain
++ etc. check with flutter doctor
 
-A few resources to get you started if this is your first Flutter project:
+# Dart packages
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+Install automatically with flutter pub get
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
++ [Record](https://pub.dev/packages/record)
++ [File Picker](https://pub.dev/packages/file_picker)
++ [Audio Players](https://pub.dev/packages/audioplayers)
++ [Http](https://pub.dev/packages/http)
+
+# Run app locally
+
+Simply execute flutter run
