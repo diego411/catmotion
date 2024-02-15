@@ -1,0 +1,7 @@
+Flask==3.0.0
+matplotlib==3.8.2
+numpy==1.26.2
+torch==2.0.1
+torchaudio==2.0.2
+torchvision==0.15.2
+ffmpeg==1.4
