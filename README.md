@@ -8,4 +8,7 @@ Furthermore a mobile app was developed using the flutter framework to provide an
 
 The respective code for a web server allowing to query the models through a REST API can be found in the [server](https://github.com/diego411/catmotion/tree/master/server) directory.
 
+App home screen            |  Example result
+:-------------------------:|:-------------------------:
+![Home Screen](assets/home_page.jpg)  |  ![Purr Result](assets/purr.jpg)
 
